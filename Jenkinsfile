@@ -8,7 +8,9 @@ pipeline {
         }
         stage('Build') {
             steps{
-                app = docker.build("demo:$BUILD_NUMBER")
+                script{
+                    app = docker.build("demo:$BUILD_NUMBER")
+                }
             }
         }
         stage('Push'){
