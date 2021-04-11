@@ -8,7 +8,7 @@ pipeline {
         }
         stage('Build') {
             steps{
-                sh 'gradlew build'
+                sh './gradlew build'
                 script{
                     app = docker.build("demo:$BUILD_NUMBER")
                 }
