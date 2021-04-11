@@ -2,10 +2,14 @@ pipeline {
     agent any
     stages {
         stage('Clone repository'){
-            checkout scm
+            steps{
+                checkout scm
+            }
         }
         stage('Build') {
-            app = docker.build("demo:$BUILD_NUMBER")
+            steps{
+                app = docker.build("demo:$BUILD_NUMBER")
+            }
         }
         stage('Push'){
             steps{
