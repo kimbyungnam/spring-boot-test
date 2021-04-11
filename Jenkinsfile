@@ -1,14 +1,16 @@
 pipeline {
     agent any
     stages {
+        stage('Clone repository'){
+            checkout scm
+        }
         stage('Build') {
-            steps{
-                sh 'gradlew build'
-            }
+            app = docker.build("demo:$BUILD_NUMBER")
         }
         stage('Push'){
             steps{
-                sh 'docker build --build-arg JAR_FILE=build/libs/\*.jar -t demo .'
+                docker.withRegistry("https://harbor.gaonna.tech", "jenkins_test")
+                app.push("$BUILD_NUMBER")
             }
         }
     }
