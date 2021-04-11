@@ -13,8 +13,10 @@ pipeline {
         }
         stage('Push'){
             steps{
-                docker.withRegistry("https://harbor.gaonna.tech", "jenkins_test")
-                app.push("$BUILD_NUMBER")
+                script{
+                    docker.withRegistry("https://harbor.gaonna.tech", "jenkins_test")
+                    app.push("$BUILD_NUMBER")
+                }
             }
         }
     }
