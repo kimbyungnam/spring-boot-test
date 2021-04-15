@@ -13,8 +13,9 @@ pipeline {
                 sh """
                 chmod +x gradlew
                 ./gradlew build
-                pwd
                 """
+
+                sh "pwd"
 
                 script{
                     echo "test branch"
