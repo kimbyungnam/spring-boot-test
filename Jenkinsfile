@@ -1,3 +1,5 @@
+#!groovy
+
 pipeline {
     agent any
     stages {
@@ -15,12 +17,34 @@ pipeline {
                 }
             }
         }
+        post{
+            failure{
+
+            }
+        }
+        stage('GitOps'){
+            steps{
+                script{
+                    sh """
+                    echo test >> test.yaml
+                    git add .
+                    git commit -m "test.yaml $BUILD_NUMBER"
+                    git push https://$GITOPS_TEST_URL
+                    """
+                }
+            }
+        }
         stage('Push'){
             steps{
                 script{
                     docker.withRegistry("https://harbor.gaonna.tech", "jenkins_test")
                     app.push("$BUILD_NUMBER")
                 }
+            }
+        }
+        post{
+            failure{
+
             }
         }
     }
