@@ -10,7 +10,11 @@ pipeline {
         }
         stage('Build') {
             steps{
-                sh './gradlew build'
+                sh """
+                chmod +x gradlew
+                ./gradlew build
+                """
+
                 script{
                     echo "test branch"
                     app = docker.build("demo:$BUILD_NUMBER")
