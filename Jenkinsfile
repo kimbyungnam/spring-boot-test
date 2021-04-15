@@ -21,11 +21,6 @@ pipeline {
                 }
             }
         }
-        post{
-            failure{
-
-            }
-        }
         stage('GitOps'){
             steps{
                 script{
@@ -44,11 +39,6 @@ pipeline {
                     docker.withRegistry("https://harbor.gaonna.tech", "jenkins_test")
                     app.push("$BUILD_NUMBER")
                 }
-            }
-        }
-        post{
-            failure{
-
             }
         }
     }
