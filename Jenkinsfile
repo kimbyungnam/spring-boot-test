@@ -25,6 +25,7 @@ pipeline {
             steps{
                 script{
                     sh """
+                    pwd
                     echo test >> test.yaml
                     git add .
                     git commit -m "test.yaml $BUILD_NUMBER"
